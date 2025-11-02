@@ -19,7 +19,7 @@
     {
     
       "src": "/api/(.*)",
-      "dest": "backend/server.js" // MUST match the 'src' in the first 'builds' object
+      "dest": "backend/server.js"
     },
     {
       
