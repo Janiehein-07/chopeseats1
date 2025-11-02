@@ -2,8 +2,8 @@
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "backend/server.js" // <--- MUST point to the correct file
+      "dest": "backend/server.js" 
     },
-    // ... (other routes for the frontend)
+   
   ]
 }
