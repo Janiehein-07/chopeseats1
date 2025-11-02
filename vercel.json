@@ -1,14 +1,32 @@
 {
   "version": 2,
-  "functions": {
-    "./bin/www.js": {
-      "runtime": "@vercel/node@20.x"
+  "builds": [
+    {
+      // 1. Configure the Backend (Node/Express) as a Serverless Function
+      // CRITICAL: Replace 'backend/server.js' with the actual entry point of your Node/Express app in the 'backend' folder
+      "src": "backend/server.js", 
+      "use": "@vercel/node"
+    },
+    {
+      // 2. Configure the Frontend (React/Static) build
+      // CRITICAL: Assuming a standard Create-React-App build command and output folder 'build'.
+      "src": "frontend/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "frontend/build" 
+      }
     }
-  },
+  ],
   "routes": [
     {
+      // 3. Route all traffic starting with /api/ to your backend serverless function
+      "src": "/api/(.*)",
+      "dest": "backend/server.js" // MUST match the 'src' in the first 'builds' object
+    },
+    {
+      // 4. Route all other traffic to the static frontend build
       "src": "/(.*)",
-      "dest": "./bin/www.js"
+      "dest": "frontend/$1"
     }
   ]
 }
